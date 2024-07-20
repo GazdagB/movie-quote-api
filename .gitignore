@@ -25,3 +25,6 @@ Thumbs.db
 *.temp
 
 todo.md
+
+config.env
+quote*.json

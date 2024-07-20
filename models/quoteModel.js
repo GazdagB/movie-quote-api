@@ -5,7 +5,8 @@ const allowedCategories = ["inspirational","motivational","funny", "romantic","d
 const quoteSchema = new mongoose.Schema({
     quote: {
         type: String,
-        required: [true, 'A quote must have a quote']
+        required: [true, 'A quote must have a quote'],
+        unique: true,
     },
     movie: {
         type: String,

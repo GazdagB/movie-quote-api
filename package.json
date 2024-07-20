@@ -1,0 +1,16 @@
+{
+  "name": "movie-quote-api",
+  "version": "1.0.0",
+  "description": "This is a study project, experimenting with node js, express and mongoose building a REST API.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "movies",
+    "quotes",
+    "api"
+  ],
+  "author": "Balazs Gazdag",
+  "license": "ISC"
+}

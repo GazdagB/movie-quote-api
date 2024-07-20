@@ -26,7 +26,7 @@ exports.createQuote = async (req, res) => {
 
     try {
         const newQuote = await Quote.create(req.body);
-
+        
         res.status(201).json({
             status: "succsess",
             data: {

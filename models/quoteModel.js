@@ -45,6 +45,7 @@ const quoteSchema = new mongoose.Schema({
     
 });
 
+// LowerCase converter 
 quoteSchema.pre("save", function(next){
     if (this.category) {
         // Ensure category is always saved in lowercase
@@ -53,6 +54,7 @@ quoteSchema.pre("save", function(next){
     next();
 })
 
+// Similarity checker Middleware
 quoteSchema.pre('save', async function(next) {
     const newQuote = this;
     try {
@@ -63,7 +65,7 @@ quoteSchema.pre('save', async function(next) {
         for (let i = 0; i < existingQuotes.length; i++) {
             const existingQuote = existingQuotes[i].quote;
             const similarity = stringSimilarity.compareTwoStrings(newQuote.quote, existingQuote);
-            if (similarity >= 0.9) {
+            if (similarity >= 0.8) {
                 const error = new Error('A similar quote already exists in the database.');
                 error.name = 'ValidationError';
                 return next(error);

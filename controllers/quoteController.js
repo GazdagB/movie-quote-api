@@ -34,10 +34,18 @@ exports.createQuote = async (req, res) => {
             }
         })
     } catch (error) {
-        res.status(400).json({
-            status: 'fail', 
-            message: error
-        })
+        if(error.code === 11000){
+            res.status(400).json({
+                status: 'fail',
+                message: 'ERR: 11000 - Duplicate quote. This quote already exists in the database.'
+            })
+        } else{
+            res.status(500).json({
+                status: 'fail', 
+                message: error
+            })
+        }
+        
     }
 };
 

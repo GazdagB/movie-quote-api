@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const stringSimilarity = require('string-similarity');
 
 const allowedCategories = ["inspirational","motivational","funny", "romantic","dramatic","action","sad","friendship","villian","hero","adventure","family","fantasy","historical","comedic","thriller"]
 
@@ -51,6 +52,31 @@ quoteSchema.pre("save", function(next){
     }
     next();
 })
+
+quoteSchema.pre('save', async function(next) {
+    const newQuote = this;
+    try {
+        // Fetch all existing quotes from the database
+        const existingQuotes = await mongoose.model('Quote').find({}, 'quote');
+
+        // Check for similarity
+        for (let i = 0; i < existingQuotes.length; i++) {
+            const existingQuote = existingQuotes[i].quote;
+            const similarity = stringSimilarity.compareTwoStrings(newQuote.quote, existingQuote);
+            if (similarity >= 0.9) {
+                const error = new Error('A similar quote already exists in the database.');
+                error.name = 'ValidationError';
+                return next(error);
+            }
+        }
+
+        // Proceed if no similar quote is found
+        
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
 
 const Quote = mongoose.model('Quote', quoteSchema);
 

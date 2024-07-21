@@ -17,6 +17,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mongoose": "^8.5.1"
+    "mongoose": "^8.5.1",
+    "readme-md-generator": "^1.0.0"
   }
 }
